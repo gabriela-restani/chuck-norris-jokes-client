@@ -9,7 +9,7 @@
 
   const api = new ChuckNorrisApi();
 
-  // Initialized from load data; managed independently by handleNewJoke / handleCategoryClick
+  // Initialized from load data; managed independently by handleNewJoke / handleShareJoke
   let currentJoke = $state(untrack(() => data.joke));
   let isLoadingJoke = $state(false);
 
@@ -30,15 +30,6 @@
     }
   };
 
-  const handleCategoryClick = async (category: string) => {
-    isLoadingJoke = true;
-    try {
-      currentJoke = await api.getJokeByCategory(category);
-    } finally {
-      isLoadingJoke = false;
-    }
-  };
-
   const handleSearch = (query: string) => {
     console.log('Implement search navigation', query);
   };
@@ -51,4 +42,4 @@
   onShareJoke={handleShareJoke}
   onSearch={handleSearch}
 />
-<HomeCategoriesSection categories={data.categories} onCategoryClick={handleCategoryClick} />
+<HomeCategoriesSection categories={data.categories} />
