@@ -14,7 +14,7 @@
 <svelte:element
   this={tag}
   {id}
-  class={`mx-auto my-0 w-full max-w-7xl py-6 lg:py-12 ${className || ''}`}
+  class={`max-h mx-auto my-0 w-full max-w-[calc(100dvw-2rem)] py-6 md:max-w-2xl lg:max-w-4xl lg:py-12 xl:max-w-5xl ${className || ''}`}
 >
   {@render children()}
 </svelte:element>
