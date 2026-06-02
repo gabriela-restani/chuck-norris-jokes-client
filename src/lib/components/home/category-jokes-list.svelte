@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Joke, JokeCategory } from '$lib/types/chuck-norris';
+  import type { Joke } from '$lib/types/chuck-norris';
   import UiTitle from '$lib/components/ui/ui-title.svelte';
   import UiText from '$lib/components/ui/ui-text.svelte';
   import UiButton from '$lib/components/ui/ui-button.svelte';
@@ -7,14 +7,14 @@
   import CategoryJokeItem from '$lib/components/home/category-joke-item.svelte';
 
   type CategoryJokesListProps = {
-    category: JokeCategory;
+    heading: string;
     jokes: Joke[];
     isLoading: boolean;
     hasMore: boolean;
     onLoadMore: () => void;
   };
 
-  let { category, jokes, isLoading, hasMore, onLoadMore }: CategoryJokesListProps = $props();
+  let { heading, jokes, isLoading, hasMore, onLoadMore }: CategoryJokesListProps = $props();
 </script>
 
 <div class="flex flex-col gap-6">
@@ -33,7 +33,7 @@
       class="flex items-center gap-2 text-leather-brown-800"
     >
       <span class="text-sm">★</span>
-      {category}
+      {heading}
       <span class="text-sm">★</span>
     </UiTitle>
     <UiText tag="p" size="lg" weight="medium" class="text-soft-black-900">
