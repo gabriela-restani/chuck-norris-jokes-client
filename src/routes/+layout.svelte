@@ -14,7 +14,7 @@
 <main
   id="main"
   class="my-0 flex min-h-[calc(100dvh-96px)] flex-col
-    items-center justify-start
+    items-center justify-start bg-cream-200
     md:min-h-[calc(100dvh-104px)] lg:min-h-[calc(100dvh-136px)]
   "
 >
