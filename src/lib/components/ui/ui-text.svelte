@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
-  type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
   type Weight = 'thin' | 'medium' | 'semibold' | 'bold';
   type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
   type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
@@ -31,7 +31,13 @@
     children: Snippet;
   };
 
-  let { tag = 'span', size = 'md', weight = 'medium', class: className, children }: UiTextProps = $props();
+  let {
+    tag = 'span',
+    size = 'md',
+    weight = 'medium',
+    class: className,
+    children,
+  }: UiTextProps = $props();
 
   const sizeMap: Record<Breakpoint, Record<Size, string>> = {
     base: {
@@ -40,6 +46,10 @@
       md: 'text-base',
       lg: 'text-lg',
       xl: 'text-xl',
+      '2xl': 'text-2xl',
+      '3xl': 'text-3xl',
+      '4xl': 'text-4xl',
+      '5xl': 'text-5xl',
     },
     sm: {
       xs: 'sm:text-xs',
@@ -47,6 +57,10 @@
       md: 'sm:text-base',
       lg: 'sm:text-lg',
       xl: 'sm:text-xl',
+      '2xl': 'sm:text-2xl',
+      '3xl': 'sm:text-3xl',
+      '4xl': 'sm:text-4xl',
+      '5xl': 'sm:text-5xl',
     },
     md: {
       xs: 'md:text-xs',
@@ -54,6 +68,10 @@
       md: 'md:text-base',
       lg: 'md:text-lg',
       xl: 'md:text-xl',
+      '2xl': 'md:text-2xl',
+      '3xl': 'md:text-3xl',
+      '4xl': 'md:text-4xl',
+      '5xl': 'md:text-5xl',
     },
     lg: {
       xs: 'lg:text-xs',
@@ -61,6 +79,10 @@
       md: 'lg:text-base',
       lg: 'lg:text-lg',
       xl: 'lg:text-xl',
+      '2xl': 'lg:text-2xl',
+      '3xl': 'lg:text-3xl',
+      '4xl': 'lg:text-4xl',
+      '5xl': 'lg:text-5xl',
     },
     xl: {
       xs: 'xl:text-xs',
@@ -68,6 +90,10 @@
       md: 'xl:text-base',
       lg: 'xl:text-lg',
       xl: 'xl:text-xl',
+      '2xl': 'xl:text-2xl',
+      '3xl': 'xl:text-3xl',
+      '4xl': 'xl:text-4xl',
+      '5xl': 'xl:text-5xl',
     },
   };
 
@@ -113,7 +139,9 @@
   }
 
   const classes = $derived(
-    ['font-oswald', resolve(size, sizeMap), resolve(weight, weightMap), className].filter(Boolean).join(' ')
+    ['font-oswald', resolve(size, sizeMap), resolve(weight, weightMap), className]
+      .filter(Boolean)
+      .join(' '),
   );
 </script>
 
