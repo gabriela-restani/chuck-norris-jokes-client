@@ -22,7 +22,9 @@
   this={tag}
   {id}
   aria-labelledby={ariaLabelledby}
-  class={`max-h mx-auto my-0 w-full max-w-[calc(100dvw-2rem)] md:max-w-2xl lg:max-w-4xl xl:max-w-5xl ${className || ''}`}
+  class={`max-h mx-auto my-0 w-full max-w-[calc(100dvw-2rem)]
+    md:max-w-2xl lg:max-w-4xl xl:max-w-5xl ${className || ''}
+  `}
 >
   {@render children()}
 </svelte:element>
