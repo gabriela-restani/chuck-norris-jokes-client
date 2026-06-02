@@ -7,7 +7,7 @@
 <header
   class="sticky top-0 z-50
     flex items-center justify-between border-b-4
-    border-red-700 bg-indigo-950 px-5
+    border-red-700 bg-deep-blue-900 px-5
     py-2 lg:px-8 lg:py-4"
 >
   <a
