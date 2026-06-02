@@ -13,6 +13,7 @@
     size?: Responsive<Size>;
     weight?: Responsive<Weight>;
     class?: string;
+    id?: string;
     children: Snippet;
   };
 
@@ -21,6 +22,7 @@
     size = 'md',
     weight = 'semibold',
     class: className,
+    id,
     children,
   }: UiTitleProps = $props();
 
@@ -125,6 +127,6 @@
   );
 </script>
 
-<svelte:element this={tag} class={classes}>
+<svelte:element this={tag} {id} class={classes}>
   {@render children()}
 </svelte:element>
