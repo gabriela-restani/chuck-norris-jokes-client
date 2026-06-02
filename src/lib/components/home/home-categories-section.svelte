@@ -104,7 +104,7 @@
   </div>
 
   <ul
-    class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    class="flex flex-wrap justify-center gap-2"
     aria-label="Joke categories"
   >
     {#each categories as category (category)}
@@ -118,7 +118,7 @@
 
   {#if selectedCategory}
     <CategoryJokesList
-      category={selectedCategory}
+      heading={selectedCategory}
       jokes={categoryJokes}
       isLoading={isLoadingCategoryJokes}
       hasMore={hasMore}
