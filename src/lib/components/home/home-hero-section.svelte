@@ -4,12 +4,18 @@
   import UiStarDivider from '$lib/components/ui/ui-star-divider.svelte';
   import SearchForm from '$lib/components/home/search-form.svelte';
   import CurrentJokeCard from '$lib/components/home/current-joke-card.svelte';
+  import type { Joke } from '$lib/types/chuck-norris';
 
   type HomeHeroSectionProps = {
+    joke: Joke;
+    isLoadingJoke?: boolean;
     onSearch: (query: string) => void;
+    onNewJoke: () => void;
+    onShareJoke: () => void;
   };
 
-  let { onSearch }: HomeHeroSectionProps = $props();
+  let { joke, isLoadingJoke = false, onSearch, onNewJoke, onShareJoke }: HomeHeroSectionProps =
+    $props();
 </script>
 
 <UiContainer tag="section" class="grid grid-cols-1 items-center gap-8 md:grid-cols-2" id="home">
@@ -39,6 +45,6 @@
   </div>
 
   <div>
-    <CurrentJokeCard />
+    <CurrentJokeCard {joke} isLoading={isLoadingJoke} {onNewJoke} {onShareJoke} />
   </div>
 </UiContainer>
