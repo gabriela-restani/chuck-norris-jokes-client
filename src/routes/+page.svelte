@@ -6,7 +6,7 @@
   import { ChuckNorrisApi } from '$lib/services/chuck-norris-api';
   import type { Joke } from '$lib/types/chuck-norris';
   import type { PageData } from './$types';
-  import { showToast } from '$lib/stores/toast.svelte';
+  import { shareLink } from '$lib/utils/share';
 
   let { data }: { data: PageData } = $props();
 
@@ -48,18 +48,7 @@
     }
   };
 
-  const handleShareJoke = async () => {
-    try {
-      await navigator.clipboard.writeText(currentJoke.url);
-      showToast({
-        message: 'Link copiado para a área de transferência!',
-        type: 'success',
-        duration: 3000,
-      });
-    } catch {
-      prompt('Copy the joke link:', currentJoke.url);
-    }
-  };
+  const handleShareJoke = () => shareLink(currentJoke.url);
 </script>
 
 <HomeHeroSection
