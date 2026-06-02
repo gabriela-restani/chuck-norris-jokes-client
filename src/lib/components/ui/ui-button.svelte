@@ -4,7 +4,7 @@
   type Color = 'red' | 'deep-blue' | 'leather-brown' | 'soft-black' | 'cream';
   type Variant = 'primary' | 'secondary' | 'tertiary';
   type Size = 'sm' | 'md' | 'large';
-  type Behavior = 'inline-block' | 'block' | 'inline';
+  type Behavior = 'inline-block' | 'block' | 'inline' | 'fit';
 
   type UiButtonProps = {
     behavior?: Behavior;
@@ -14,6 +14,7 @@
     type?: 'button' | 'submit' | 'reset';
     disabled?: boolean;
     wrapText?: boolean;
+    'aria-pressed'?: boolean;
     class?: string;
     children: Snippet;
     onclick?: (event: MouseEvent) => void;
@@ -27,6 +28,7 @@
     type = 'button',
     disabled = false,
     wrapText = false,
+    'aria-pressed': ariaPressed,
     class: className,
     children,
     onclick,
@@ -78,6 +80,7 @@
     'inline-block': 'inline-block w-full flex-1',
     block: 'block w-full',
     inline: 'inline',
+    fit: 'inline-flex items-center gap-1',
   };
 
   const classes = $derived(
@@ -96,6 +99,6 @@
   );
 </script>
 
-<button {type} {disabled} {onclick} class={classes}>
+<button {type} {disabled} {onclick} aria-pressed={ariaPressed} class={classes}>
   {@render children()}
 </button>
