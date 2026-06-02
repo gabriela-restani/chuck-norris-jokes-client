@@ -3,4 +3,69 @@
 @theme {
   --font-bebas: "Bebas Neue", sans-serif;
   --font-oswald: "Oswald", sans-serif;
+
+  /* deep-blue */
+  --color-deep-blue-50: #f6f7f8;
+  --color-deep-blue-100: #eceef3;
+  --color-deep-blue-200: #d0d7e7;
+  --color-deep-blue-300: #acbbdd;
+  --color-deep-blue-400: #839cd2;
+  --color-deep-blue-500: #5277c6;
+  --color-deep-blue-600: #3659a5;
+  --color-deep-blue-700: #2a4379;
+  --color-deep-blue-800: #202f50;
+  --color-deep-blue-900: #171f30;
+  --color-deep-blue-950: #11151d;
+
+  /* red */
+  --color-red-50: #f9f6f6;
+  --color-red-100: #f5eaeb;
+  --color-red-200: #efc8cb;
+  --color-red-300: #ec9ca2;
+  --color-red-400: #ec6a74;
+  --color-red-500: #eb2d3b;
+  --color-red-600: #c91320;
+  --color-red-700: #92111b;
+  --color-red-800: #601116;
+  --color-red-900: #380f12;
+  --color-red-950: #200d0f;
+
+  /* cream */
+  --color-cream-50: #f8f8f6;
+  --color-cream-100: #f4f2ec;
+  --color-cream-200: #e9e4cd;
+  --color-cream-300: #e1d6a7;
+  --color-cream-400: #dac87c;
+  --color-cream-500: #d1b747;
+  --color-cream-600: #af962c;
+  --color-cream-700: #806e23;
+  --color-cream-800: #554a1b;
+  --color-cream-900: #332d15;
+  --color-cream-950: #1e1b10;
+
+  /* leather-brown */
+  --color-leather-brown-50: #f8f7f7;
+  --color-leather-brown-100: #f3efed;
+  --color-leather-brown-200: #e5dad1;
+  --color-leather-brown-300: #d9c3af;
+  --color-leather-brown-400: #cda889;
+  --color-leather-brown-500: #be885a;
+  --color-leather-brown-600: #9d6a3e;
+  --color-leather-brown-700: #734f30;
+  --color-leather-brown-800: #4d3623;
+  --color-leather-brown-900: #2f2319;
+  --color-leather-brown-950: #1c1712;
+
+  /* soft-black */
+  --color-soft-black-50: #f7f7f7;
+  --color-soft-black-100: #f0f0f0;
+  --color-soft-black-200: #dbdbdb;
+  --color-soft-black-300: #c4c4c4;
+  --color-soft-black-400: #ababab;
+  --color-soft-black-500: #8c8c8c;
+  --color-soft-black-600: #6e6e6e;
+  --color-soft-black-700: #525252;
+  --color-soft-black-800: #383838;
+  --color-soft-black-900: #242424;
+  --color-soft-black-950: #171717;
 }
