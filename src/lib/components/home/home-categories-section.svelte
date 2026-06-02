@@ -16,7 +16,7 @@
   tag="section"
   class="flex flex-col items-center justify-start gap-6 py-12"
   id="categories"
-  aria-labeledby="categories-heading"
+  aria-labelledby="categories-heading"
 >
   <div class="flex flex-col items-center justify-center gap-1">
     <UiTitle
