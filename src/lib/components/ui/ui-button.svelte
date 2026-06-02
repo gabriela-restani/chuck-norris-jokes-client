@@ -75,7 +75,7 @@
   };
 
   const behaviorMap: Record<Behavior, string> = {
-    'inline-block': 'inline-block',
+    'inline-block': 'inline-block w-full flex-1',
     block: 'block w-full',
     inline: 'inline',
   };
