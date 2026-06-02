@@ -3,6 +3,16 @@
   import UiText from '$lib/components/ui/ui-text.svelte';
   import UiStarDivider from '$lib/components/ui/ui-star-divider.svelte';
   import UiButton from '$lib/components/ui/ui-button.svelte';
+  import type { Joke } from '$lib/types/chuck-norris';
+
+  type CurrentJokeCardProps = {
+    joke: Joke;
+    isLoading?: boolean;
+    onNewJoke: () => void;
+    onShareJoke: () => void;
+  };
+
+  let { joke, isLoading = false, onNewJoke, onShareJoke }: CurrentJokeCardProps = $props();
 </script>
 
 <div
@@ -13,8 +23,13 @@
     ★ Current Joke
   </UiTitle>
 
-  <UiText tag="p" size="3xl" weight="medium" class="h-auto text-cream-100">
-    Why did Chuck Norris cross the road? To get to the other side... of the world!
+  <UiText
+    tag="p"
+    size="3xl"
+    weight="medium"
+    class="h-auto text-cream-100 transition-opacity duration-300 {isLoading ? 'opacity-40' : 'opacity-100'}"
+  >
+    {joke.value}
   </UiText>
 
   <UiStarDivider
@@ -29,7 +44,8 @@
       color="cream"
       variant="secondary"
       behavior="inline-block"
-      onclick={() => console.log('Share joke button clicked! Implement share joke functionality here.')}
+      disabled={isLoading}
+      onclick={onShareJoke}
     >
       Share Joke
     </UiButton>
@@ -37,9 +53,10 @@
       color="red"
       variant="primary"
       behavior="inline-block"
-      onclick={() => console.log('New joke button clicked! Implement new joke functionality here.')}
+      disabled={isLoading}
+      onclick={onNewJoke}
     >
-      New Joke
+      {isLoading ? 'Loading...' : 'New Joke'}
     </UiButton>
   </div>
 </div>
