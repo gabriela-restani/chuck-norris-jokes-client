@@ -4,7 +4,7 @@
   import UiText from '$lib/components/ui/ui-text.svelte';
   import UiButton from '$lib/components/ui/ui-button.svelte';
   import UiStarDivider from '$lib/components/ui/ui-star-divider.svelte';
-  import CategoryJokeItem from '$lib/components/home/category-joke-item.svelte';
+  import JokeItem from '$lib/components/home/joke-item.svelte';
 
   type CategoryJokesListProps = {
     heading: string;
@@ -21,8 +21,8 @@
   <UiStarDivider
     leftLength="100%"
     rightLength="100%"
-    dividerColor="bg-deep-blue-200"
-    starColor="text-leather-brown-600"
+    dividerColor="bg-deep-blue-800"
+    starColor="text-red-600"
   />
 
   <div class="flex flex-col items-center gap-1">
@@ -43,14 +43,12 @@
 
   <ul class="flex flex-col gap-4">
     {#each jokes as joke (joke.id)}
-      <CategoryJokeItem {joke} />
+      <JokeItem {joke} />
     {/each}
 
     {#if isLoading}
       <li class="rounded-lg border border-deep-blue-200 bg-deep-blue-100 p-5 text-center">
-        <UiText tag="p" size="md" class="animate-pulse text-deep-blue-600"
-          >Loading jokes...</UiText
-        >
+        <UiText tag="p" size="md" class="animate-pulse text-deep-blue-600">Loading jokes...</UiText>
       </li>
     {/if}
   </ul>
