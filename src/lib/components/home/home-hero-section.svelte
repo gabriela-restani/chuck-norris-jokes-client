@@ -12,13 +12,26 @@
     onSearch: (query: string) => void;
     onNewJoke: () => void;
     onShareJoke: () => void;
+    class?: string;
+    id?: string;
   };
 
-  let { joke, isLoadingJoke = false, onSearch, onNewJoke, onShareJoke }: HomeHeroSectionProps =
-    $props();
+  let {
+    joke,
+    isLoadingJoke = false,
+    onSearch,
+    onNewJoke,
+    onShareJoke,
+    class: className = '',
+    id,
+  }: HomeHeroSectionProps = $props();
 </script>
 
-<UiContainer tag="section" class="grid grid-cols-1 items-center gap-8 md:grid-cols-2" id="home">
+<UiContainer
+  tag="section"
+  class={`grid grid-cols-1 items-center gap-8 md:grid-cols-2 ${className}`}
+  {id}
+>
   <div class="flex flex-col items-start justify-start gap-4">
     <UiTitle
       tag="h1"

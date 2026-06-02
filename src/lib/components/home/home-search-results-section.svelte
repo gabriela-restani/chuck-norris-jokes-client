@@ -10,12 +10,21 @@
     jokes: Joke[];
     totalResults: number;
     isLoading: boolean;
+    class?: string;
+    id?: string;
   };
 
-  let { query, jokes, totalResults, isLoading }: HomeSearchResultsSectionProps = $props();
+  let {
+    query,
+    jokes,
+    totalResults,
+    isLoading,
+    class: className = '',
+    id,
+  }: HomeSearchResultsSectionProps = $props();
 </script>
 
-<UiContainer tag="section" class="flex flex-col gap-2 py-0" id="search-results">
+<UiContainer tag="section" class={`flex flex-col gap-2 py-0 ${className}`} {id}>
   <div class="flex flex-col items-center gap-1">
     {#if isLoading}
       <UiTitle tag="h2" size="xs" weight="semibold" class="animate-pulse text-leather-brown-600">
