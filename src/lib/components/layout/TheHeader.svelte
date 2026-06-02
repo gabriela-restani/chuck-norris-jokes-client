@@ -2,6 +2,7 @@
   import { resolve } from '$app/paths';
   import UiLogo from '$lib/components/ui/ui-logo.svelte';
   import UiTitle from '$lib/components/ui/ui-title.svelte';
+  import UiContainer from '../ui/ui-container.svelte';
 </script>
 
 <header
@@ -10,46 +11,49 @@
     border-red-700 bg-deep-blue-900 px-5
     py-2 lg:px-8 lg:py-4"
 >
-  <a
-    class="absolute top-2 left-1 h-1 opacity-0
+  <UiContainer class="m-0 flex items-center justify-between p-0!">
+    <a
+      class="absolute top-2 left-1 h-1 opacity-0
       transition-all duration-300 focus:z-50 focus:h-auto
       focus:w-auto focus:rounded-sm focus:bg-indigo-800 focus:p-2
       focus:text-white focus:opacity-100
     "
-    href={resolve('/#main')}
-  >
-    Go to main content
-  </a>
-  <a href={resolve('/')} aria-label="Chuck Norris Jokes - click to go to Home">
-    <UiLogo />
-  </a>
+      href={resolve('/#main')}
+    >
+      Go to main content
+    </a>
 
-  <nav class="flex items-center gap-6" aria-label="Main navigation">
-    <a
-      href={resolve('/#jokes')}
-      class="transition-all duration-300 hover:border-b-2 hover:border-red-700"
-    >
-      <UiTitle
-        tag="span"
-        size={{ base: 'xs', md: 'sm' }}
-        weight="medium"
-        class="text-cream-50 hover:text-red-600"
-      >
-        Joke
-      </UiTitle>
+    <a href={resolve('/')} aria-label="Chuck Norris Jokes - click to go to Home">
+      <UiLogo />
     </a>
-    <a
-      href={resolve('/#categories')}
-      class="transition-all duration-300 hover:border-b-2 hover:border-red-700"
-    >
-      <UiTitle
-        tag="span"
-        size={{ base: 'xs', md: 'sm' }}
-        weight="medium"
-        class="text-cream-50 hover:text-red-600"
+
+    <nav class="flex items-center gap-6" aria-label="Main navigation">
+      <a
+        href={resolve('/#jokes')}
+        class="transition-all duration-300 hover:border-b-2 hover:border-red-700"
       >
-        Categories
-      </UiTitle>
-    </a>
-  </nav>
+        <UiTitle
+          tag="span"
+          size={{ base: 'xs', md: 'sm' }}
+          weight="medium"
+          class="text-cream-50 hover:text-red-600"
+        >
+          Joke
+        </UiTitle>
+      </a>
+      <a
+        href={resolve('/#categories')}
+        class="transition-all duration-300 hover:border-b-2 hover:border-red-700"
+      >
+        <UiTitle
+          tag="span"
+          size={{ base: 'xs', md: 'sm' }}
+          weight="medium"
+          class="text-cream-50 hover:text-red-600"
+        >
+          Categories
+        </UiTitle>
+      </a>
+    </nav>
+  </UiContainer>
 </header>

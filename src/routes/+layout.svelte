@@ -3,6 +3,7 @@
   import favicon from '$lib/assets/favicon.svg';
   import TheHeader from '$lib/components/layout/TheHeader.svelte';
   import TheFooter from '$lib/components/layout/TheFooter.svelte';
+  import UiToast from '$lib/components/ui/ui-toast.svelte';
 
   let { children } = $props();
 </script>
@@ -22,3 +23,5 @@
 </main>
 
 <TheFooter />
+
+<UiToast />
