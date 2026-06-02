@@ -1,17 +1,54 @@
 <script lang="ts">
+  import { untrack } from 'svelte';
   import HomeHeroSection from '$lib/components/home/home-hero-section.svelte';
   import HomeCategoriesSection from '$lib/components/home/home-categories-section.svelte';
+  import { ChuckNorrisApi } from '$lib/services/chuck-norris-api';
+  import type { PageData } from './$types';
 
-  let categories = $state<string[]>([]);
+  let { data }: { data: PageData } = $props();
 
-  const handleSearch = (query: string) => {
-    console.log('Search button clicked! Implement search functionality here.', query);
+  const api = new ChuckNorrisApi();
+
+  // Initialized from load data; managed independently by handleNewJoke / handleCategoryClick
+  let currentJoke = $state(untrack(() => data.joke));
+  let isLoadingJoke = $state(false);
+
+  const handleNewJoke = async () => {
+    isLoadingJoke = true;
+    try {
+      currentJoke = await api.getRandomJoke();
+    } finally {
+      isLoadingJoke = false;
+    }
   };
 
-  const handleCategoryClick = (category: string) => {
-    console.log(`Category button clicked: ${category}`);
+  const handleShareJoke = async () => {
+    try {
+      await navigator.clipboard.writeText(currentJoke.url);
+    } catch {
+      prompt('Copy the joke link:', currentJoke.url);
+    }
+  };
+
+  const handleCategoryClick = async (category: string) => {
+    isLoadingJoke = true;
+    try {
+      currentJoke = await api.getJokeByCategory(category);
+    } finally {
+      isLoadingJoke = false;
+    }
+  };
+
+  const handleSearch = (query: string) => {
+    console.log('Implement search navigation', query);
   };
 </script>
 
-<HomeHeroSection onSearch={handleSearch} />
-<HomeCategoriesSection {categories} onCategoryClick={handleCategoryClick} />
+<HomeHeroSection
+  joke={currentJoke}
+  {isLoadingJoke}
+  onNewJoke={handleNewJoke}
+  onShareJoke={handleShareJoke}
+  onSearch={handleSearch}
+/>
+<HomeCategoriesSection categories={data.categories} onCategoryClick={handleCategoryClick} />
