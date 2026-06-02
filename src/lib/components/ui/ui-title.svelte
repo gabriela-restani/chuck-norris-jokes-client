@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
-  type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl';
   type Weight = 'medium' | 'semibold' | 'bold';
   type Breakpoint = 'base' | 'sm' | 'md' | 'lg' | 'xl';
   type Responsive<T> = T | Partial<Record<Breakpoint, T>>;
@@ -31,6 +31,10 @@
       md: 'text-3xl',
       lg: 'text-4xl',
       xl: 'text-5xl',
+      '2xl': 'text-6xl',
+      '3xl': 'text-7xl',
+      '4xl': 'text-8xl',
+      '5xl': 'text-9xl',
     },
     sm: {
       xs: 'sm:text-xl',
@@ -38,6 +42,10 @@
       md: 'sm:text-3xl',
       lg: 'sm:text-4xl',
       xl: 'sm:text-5xl',
+      '2xl': 'sm:text-6xl',
+      '3xl': 'sm:text-7xl',
+      '4xl': 'sm:text-8xl',
+      '5xl': 'sm:text-9xl',
     },
     md: {
       xs: 'md:text-xl',
@@ -45,6 +53,10 @@
       md: 'md:text-3xl',
       lg: 'md:text-4xl',
       xl: 'md:text-5xl',
+      '2xl': 'md:text-6xl',
+      '3xl': 'md:text-7xl',
+      '4xl': 'md:text-8xl',
+      '5xl': 'md:text-9xl',
     },
     lg: {
       xs: 'lg:text-xl',
@@ -52,6 +64,10 @@
       md: 'lg:text-3xl',
       lg: 'lg:text-4xl',
       xl: 'lg:text-5xl',
+      '2xl': 'lg:text-6xl',
+      '3xl': 'lg:text-7xl',
+      '4xl': 'lg:text-8xl',
+      '5xl': 'lg:text-9xl',
     },
     xl: {
       xs: 'xl:text-xl',
@@ -59,6 +75,10 @@
       md: 'xl:text-3xl',
       lg: 'xl:text-4xl',
       xl: 'xl:text-5xl',
+      '2xl': 'xl:text-6xl',
+      '3xl': 'xl:text-7xl',
+      '4xl': 'xl:text-8xl',
+      '5xl': 'xl:text-9xl',
     },
   };
 
