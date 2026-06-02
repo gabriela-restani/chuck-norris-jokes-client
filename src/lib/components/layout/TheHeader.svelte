@@ -24,18 +24,32 @@
     <UiLogo />
   </a>
 
-  <nav class="flex items-center gap-2" aria-label="Main navigation">
+  <nav class="flex items-center gap-6" aria-label="Main navigation">
     <a
       href={resolve('/#jokes')}
       class="transition-all duration-300 hover:border-b-2 hover:border-red-700"
     >
-      <UiTitle tag="span" size={{ base: 'xs', md: 'sm' }} class="text-amber-50">Joke</UiTitle>
+      <UiTitle
+        tag="span"
+        size={{ base: 'xs', md: 'sm' }}
+        weight="medium"
+        class="text-cream-50 hover:text-red-600"
+      >
+        Joke
+      </UiTitle>
     </a>
     <a
       href={resolve('/#categories')}
       class="transition-all duration-300 hover:border-b-2 hover:border-red-700"
     >
-      <UiTitle tag="span" size={{ base: 'xs', md: 'sm' }} class="text-amber-50">Categories</UiTitle>
+      <UiTitle
+        tag="span"
+        size={{ base: 'xs', md: 'sm' }}
+        weight="medium"
+        class="text-cream-50 hover:text-red-600"
+      >
+        Categories
+      </UiTitle>
     </a>
   </nav>
 </header>
