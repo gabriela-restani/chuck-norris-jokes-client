@@ -6,6 +6,7 @@
   import UiButton from '$lib/components/ui/ui-button.svelte';
 
   let searchQuery = $state('');
+  let categories = $state([]);
 
   const searchAndGoToResults = () => {
     console.log('Search button clicked! Implement search functionality here.', searchQuery);
@@ -63,6 +64,7 @@
 
   <div>
     <div
+      id="jokes"
       class="flex w-full flex-col items-start justify-start gap-3 rounded-lg bg-deep-blue-900 p-6 md:aspect-2/1"
     >
       <UiTitle tag="h2" size="xs" weight="medium" class="text-md font-light text-leather-brown-400">
@@ -86,15 +88,6 @@
           variant="secondary"
           behavior="inline-block"
           onclick={() =>
-            console.log('See joke button clicked! Implement see joke functionality here.')}
-        >
-          See Joke
-        </UiButton>
-        <UiButton
-          color="cream"
-          variant="secondary"
-          behavior="inline-block"
-          onclick={() =>
             console.log('Share joke button clicked! Implement share joke functionality here.')}
         >
           Share Joke
@@ -111,4 +104,49 @@
       </div>
     </div>
   </div>
+</UiContainer>
+
+<UiContainer
+  tag="section"
+  class="flex flex-col items-center justify-start gap-6 py-12"
+  id="categories"
+  aria-labeledby="categories-heading"
+>
+  <div class="flex flex-col items-center justify-center gap-1">
+    <UiTitle
+      id="categories-heading"
+      tag="h2"
+      size="xs"
+      weight="semibold"
+      class="flex items-center gap-2 text-leather-brown-800"
+    >
+      <span class="mb-px text-sm">★</span>
+      Explore jokes by categories
+      <span class="mb-0 text-sm">★</span>
+    </UiTitle>
+
+    <UiText tag="p" size="lg" weight="medium" class="text-soft-black-900">
+      Find your favorite type of humor!
+    </UiText>
+  </div>
+
+  <ul
+    class="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    aria-label="Joke categories"
+  >
+    {#each categories as category (category)}
+      <li
+        class="flex items-center justify-center rounded-lg border-2 border-deep-blue-300 bg-deep-blue-700 px-4 py-2 text-sm text-cream-100 transition-colors duration-300 focus-within:ring-2 focus-within:ring-deep-blue-500 focus-within:outline-none hover:border-deep-blue-500 hover:bg-deep-blue-800"
+      >
+        <UiButton
+          color="soft-black"
+          variant="secondary"
+          behavior="inline-block"
+          onclick={() => console.log(`Category button clicked: ${category}`)}
+        >
+          {category}
+        </UiButton>
+      </li>
+    {/each}
+  </ul>
 </UiContainer>
