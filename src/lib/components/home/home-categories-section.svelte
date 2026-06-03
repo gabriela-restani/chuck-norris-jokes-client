@@ -61,6 +61,13 @@
 
       categoryJokes = jokes;
       hasMore = jokes.length > 0;
+    } catch (error) {
+      console.error('[HomeCategoriesSection] Failed to load jokes for category', {
+        category,
+        error,
+      });
+      categoryJokes = [];
+      hasMore = false;
     } finally {
       isLoadingCategoryJokes = false;
     }
@@ -77,6 +84,12 @@
 
       categoryJokes = [...categoryJokes, ...newJokes];
       hasMore = newJokes.length > 0;
+    } catch (error) {
+      console.error('[HomeCategoriesSection] Failed to load more jokes', {
+        category: selectedCategory,
+        error,
+      });
+      hasMore = false;
     } finally {
       isLoadingCategoryJokes = false;
     }
