@@ -25,29 +25,38 @@
     class: className = '',
     id,
   }: HomeHeroSectionProps = $props();
+
+  let isMobile = $state(false);
+
+  $effect(() => {
+    if (typeof window !== 'undefined') {
+      isMobile = window.innerWidth < 1024;
+    }
+  });
 </script>
 
 <UiContainer
   tag="section"
-  class={`grid grid-cols-1 items-center gap-8 md:grid-cols-2 ${className}`}
+  class={`grid grid-cols-1 items-start gap-8 lg:grid-cols-2 ${className}`}
   {id}
 >
-  <div class="flex flex-col items-start justify-start gap-4">
+  <div class="flex flex-col items-center justify-center gap-4 lg:items-start lg:justify-start">
     <UiTitle
       tag="h1"
       size={{ base: '2xl', md: '3xl' }}
       weight="bold"
-      class="flex flex-col items-start justify-start text-deep-blue-800"
+      class="flex flex-col items-center justify-center text-deep-blue-800 lg:items-start lg:justify-start"
     >
       Chuck Norris
       <span class="text-red-700">Jokes</span>
     </UiTitle>
 
     <UiStarDivider
-      leftLength="0"
+      leftLength={isMobile ? '70px' : '0'}
       rightLength="70px"
       dividerColor="bg-deep-blue-800"
       starColor="text-red-600"
+      width="fit"
     />
 
     <UiTitle size="sm" class="text-deep-blue-800">
