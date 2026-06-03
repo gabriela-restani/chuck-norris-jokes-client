@@ -37,24 +37,33 @@
   };
 </script>
 
-<div class="pointer-events-none fixed top-4 right-4 z-50 flex w-full max-w-xs flex-col gap-2">
+<div
+  data-testid="toasts-container"
+  class="pointer-events-none fixed top-4 right-4 z-50 flex w-full max-w-xs flex-col gap-2"
+>
   {#each toasts as toast (toast.id)}
     <div
+      data-testid="ui-toast"
       transition:fly={{ x: 100, duration: 300 }}
       class="pointer-events-auto flex items-start justify-between rounded-md border-2 p-3 text-white shadow-lg
         {toastStyles[toast.type]}"
       role={getRole(toast.type)}
       aria-live={getAriaLive(toast.type)}
     >
-      <span class="mt-0.5 shrink-0 text-sm font-bold">{icons[toast.type]}</span>
+      <span data-testid="toast-icon" class="mt-0.5 shrink-0 text-sm font-bold"
+        >{icons[toast.type]}</span
+      >
       <div>
         {#if toast.title}
-          <strong class="block font-semibold">{toast.title}</strong>
+          <strong data-testid="toast-title" class="block font-semibold">{toast.title}</strong>
         {/if}
 
-        <p class="flex-1 font-oswald text-sm leading-snug">{toast.message}</p>
+        <p data-testid="toast-message" class="flex-1 font-oswald text-sm leading-snug">
+          {toast.message}
+        </p>
       </div>
       <button
+        data-testid="dismiss-toast"
         class="ml-1 shrink-0 cursor-pointer text-white/70 transition-colors hover:text-white"
         onclick={() => dismissToast(toast.id)}
         aria-label="Close notification"

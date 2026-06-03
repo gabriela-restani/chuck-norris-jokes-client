@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SvelteSet } from 'svelte/reactivity';
   import { ChuckNorrisApi } from '$lib/services/chuck-norris-api';
   import type { Joke, JokeCategory } from '$lib/types/chuck-norris';
   import UiContainer from '$lib/components/ui/ui-container.svelte';
@@ -20,20 +21,20 @@
   let isLoadingCategoryJokes = $state(false);
   let hasMore = $state(false);
 
-  // Initial load uses 5 calls (no existing jokes to compete with).
-  // Load more uses 20 calls to reliably surface remaining jokes against a growing seen set.
   const INITIAL_CALLS = 5;
   const LOAD_MORE_CALLS = 20;
 
-  const fetchUnique = async (
+  const fetchUniqueJokes = async (
     category: JokeCategory,
-    existingIds: Set<string>,
+    existingIds: SvelteSet<string>,
     callCount: number,
   ): Promise<Joke[]> => {
     const fetched = await Promise.all(
       Array.from({ length: callCount }, () => api.getJokeByCategory(category)),
     );
-    const seen = new Set(existingIds);
+
+    const seen = new SvelteSet(existingIds);
+
     return fetched.filter((joke) => {
       if (seen.has(joke.id)) return false;
       seen.add(joke.id);
@@ -46,6 +47,7 @@
       selectedCategory = null;
       categoryJokes = [];
       hasMore = false;
+
       return;
     }
 
@@ -55,7 +57,8 @@
     isLoadingCategoryJokes = true;
 
     try {
-      const jokes = await fetchUnique(category, new Set(), INITIAL_CALLS);
+      const jokes = await fetchUniqueJokes(category, new SvelteSet(), INITIAL_CALLS);
+
       categoryJokes = jokes;
       hasMore = jokes.length > 0;
     } finally {
@@ -68,10 +71,11 @@
     isLoadingCategoryJokes = true;
 
     try {
-      const existingIds = new Set(categoryJokes.map((j) => j.id));
-      const newJokes = await fetchUnique(selectedCategory, existingIds, LOAD_MORE_CALLS);
+      const existingIds = new SvelteSet(categoryJokes.map((j) => j.id));
+
+      const newJokes = await fetchUniqueJokes(selectedCategory, existingIds, LOAD_MORE_CALLS);
+
       categoryJokes = [...categoryJokes, ...newJokes];
-      // Hide the button only when zero new unique jokes were found
       hasMore = newJokes.length > 0;
     } finally {
       isLoadingCategoryJokes = false;
@@ -103,10 +107,7 @@
     </UiText>
   </div>
 
-  <ul
-    class="flex flex-wrap justify-center gap-2"
-    aria-label="Joke categories"
-  >
+  <ul class="flex flex-wrap justify-center gap-2" aria-label="Joke categories">
     {#each categories as category (category)}
       <CategoryItem
         {category}
@@ -121,7 +122,7 @@
       heading={selectedCategory}
       jokes={categoryJokes}
       isLoading={isLoadingCategoryJokes}
-      hasMore={hasMore}
+      {hasMore}
       onLoadMore={handleLoadMore}
     />
   {/if}
