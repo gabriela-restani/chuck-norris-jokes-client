@@ -7,7 +7,8 @@
 
   let searchQuery = $state('');
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
     onSearch(searchQuery);
   };
 </script>

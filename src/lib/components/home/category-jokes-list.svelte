@@ -32,9 +32,9 @@
       weight="semibold"
       class="flex items-center gap-2 text-leather-brown-800"
     >
-      <span class="text-sm">★</span>
+      <span class="text-sm" aria-hidden="true">★</span>
       {heading}
-      <span class="text-sm">★</span>
+      <span class="text-sm" aria-hidden="true">★</span>
     </UiTitle>
     <UiText tag="p" size="lg" weight="medium" class="text-soft-black-900">
       {jokes.length} joke{jokes.length === 1 ? '' : 's'} loaded

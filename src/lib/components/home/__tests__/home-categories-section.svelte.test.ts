@@ -7,9 +7,11 @@ import HomeCategoriesSection from '$lib/components/home/home-categories-section.
 const mockGetJokeByCategory = vi.hoisted(() => vi.fn());
 
 vi.mock('$lib/services/chuck-norris-api', () => ({
-  ChuckNorrisApi: vi.fn(class {
-    getJokeByCategory = mockGetJokeByCategory;
-  })
+  ChuckNorrisApi: vi.fn(
+    class {
+      getJokeByCategory = mockGetJokeByCategory;
+    },
+  ),
 }));
 
 const makeJoke = (id: string, value: string): Joke => ({
@@ -86,7 +88,9 @@ describe('HomeCategoriesSection', () => {
       await page.getByRole('button', { name: /science/ }).click();
 
       await vi.waitFor(async () => {
-        await expect.element(page.getByRole('heading', { name: /science/i, level: 3 })).toBeInTheDocument();
+        await expect
+          .element(page.getByRole('heading', { name: /science/i, level: 3 }))
+          .toBeInTheDocument();
       });
     });
 

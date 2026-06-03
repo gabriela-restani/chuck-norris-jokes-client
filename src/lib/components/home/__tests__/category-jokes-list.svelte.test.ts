@@ -31,7 +31,13 @@ describe('CategoryJokesList', () => {
 
     it('renders each joke', async () => {
       const jokes = [makeJoke('1', 'First joke'), makeJoke('2', 'Second joke')];
-      render(CategoryJokesList, { heading: 'science', jokes, isLoading: false, hasMore: false, onLoadMore: vi.fn() });
+      render(CategoryJokesList, {
+        heading: 'science',
+        jokes,
+        isLoading: false,
+        hasMore: false,
+        onLoadMore: vi.fn(),
+      });
 
       await expect.element(page.getByText('First joke')).toBeInTheDocument();
       await expect.element(page.getByText('Second joke')).toBeInTheDocument();
@@ -39,7 +45,13 @@ describe('CategoryJokesList', () => {
 
     it('shows the count of jokes loaded (plural)', async () => {
       const jokes = [makeJoke('1', 'Joke A'), makeJoke('2', 'Joke B')];
-      render(CategoryJokesList, { heading: 'science', jokes, isLoading: false, hasMore: false, onLoadMore: vi.fn() });
+      render(CategoryJokesList, {
+        heading: 'science',
+        jokes,
+        isLoading: false,
+        hasMore: false,
+        onLoadMore: vi.fn(),
+      });
 
       await expect.element(page.getByText('2 jokes loaded')).toBeInTheDocument();
     });
@@ -57,7 +69,13 @@ describe('CategoryJokesList', () => {
     });
 
     it('shows "0 jokes loaded" when the list is empty', async () => {
-      render(CategoryJokesList, { heading: 'science', jokes: [], isLoading: false, hasMore: false, onLoadMore: vi.fn() });
+      render(CategoryJokesList, {
+        heading: 'science',
+        jokes: [],
+        isLoading: false,
+        hasMore: false,
+        onLoadMore: vi.fn(),
+      });
 
       await expect.element(page.getByText('0 jokes loaded')).toBeInTheDocument();
     });
@@ -65,21 +83,41 @@ describe('CategoryJokesList', () => {
 
   describe('while loading', () => {
     it('shows the "Loading jokes..." indicator', async () => {
-      render(CategoryJokesList, { heading: 'science', jokes: [], isLoading: true, hasMore: false, onLoadMore: vi.fn() });
+      render(CategoryJokesList, {
+        heading: 'science',
+        jokes: [],
+        isLoading: true,
+        hasMore: false,
+        onLoadMore: vi.fn(),
+      });
 
       await expect.element(page.getByText('Loading jokes...')).toBeInTheDocument();
     });
 
     it('does not show the "Load more jokes" button even when hasMore is true', async () => {
-      render(CategoryJokesList, { heading: 'science', jokes: [], isLoading: true, hasMore: true, onLoadMore: vi.fn() });
+      render(CategoryJokesList, {
+        heading: 'science',
+        jokes: [],
+        isLoading: true,
+        hasMore: true,
+        onLoadMore: vi.fn(),
+      });
 
-      await expect.element(page.getByRole('button', { name: /load more jokes/i })).not.toBeInTheDocument();
+      await expect
+        .element(page.getByRole('button', { name: /load more jokes/i }))
+        .not.toBeInTheDocument();
     });
   });
 
   describe('when not loading', () => {
     it('does not show the "Loading jokes..." indicator', async () => {
-      render(CategoryJokesList, { heading: 'science', jokes: [], isLoading: false, hasMore: false, onLoadMore: vi.fn() });
+      render(CategoryJokesList, {
+        heading: 'science',
+        jokes: [],
+        isLoading: false,
+        hasMore: false,
+        onLoadMore: vi.fn(),
+      });
 
       await expect.element(page.getByText('Loading jokes...')).not.toBeInTheDocument();
     });
@@ -95,7 +133,9 @@ describe('CategoryJokesList', () => {
         onLoadMore: vi.fn(),
       });
 
-      await expect.element(page.getByRole('button', { name: /load more jokes/i })).toBeInTheDocument();
+      await expect
+        .element(page.getByRole('button', { name: /load more jokes/i }))
+        .toBeInTheDocument();
     });
 
     it('calls onLoadMore when the button is clicked', async () => {
@@ -125,7 +165,9 @@ describe('CategoryJokesList', () => {
         onLoadMore: vi.fn(),
       });
 
-      await expect.element(page.getByRole('button', { name: /load more jokes/i })).not.toBeInTheDocument();
+      await expect
+        .element(page.getByRole('button', { name: /load more jokes/i }))
+        .not.toBeInTheDocument();
     });
   });
 });

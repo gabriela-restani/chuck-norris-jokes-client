@@ -30,15 +30,11 @@ export class ChuckNorrisApi implements IChuckNorrisApi {
   constructor(private readonly fetchFn: typeof fetch = fetch) {}
 
   async getJokeByQuery(query: string): Promise<JokeSearchResult> {
-    return this.request<JokeSearchResult>(
-      `${BASE_URL}/search?query=${encodeURIComponent(query)}`,
-    );
+    return this.request<JokeSearchResult>(`${BASE_URL}/search?query=${encodeURIComponent(query)}`);
   }
 
   async getJokeByCategory(category: JokeCategory): Promise<Joke> {
-    return this.request<Joke>(
-      `${BASE_URL}/random?category=${encodeURIComponent(category)}`,
-    );
+    return this.request<Joke>(`${BASE_URL}/random?category=${encodeURIComponent(category)}`);
   }
 
   async getRandomJoke(): Promise<Joke> {

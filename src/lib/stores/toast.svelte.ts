@@ -13,7 +13,7 @@ export type ShowToastOptions = {
   duration?: number;
 };
 
-let toasts = $state<Toast[]>([]);
+const toasts = $state<Toast[]>([]);
 let nextId = 0;
 
 export function showToast(params: {

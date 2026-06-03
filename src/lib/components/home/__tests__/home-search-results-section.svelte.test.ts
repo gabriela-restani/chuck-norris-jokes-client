@@ -24,7 +24,9 @@ describe('HomeSearchResultsSection', () => {
         isLoading: true,
       });
 
-      await expect.element(page.getByRole('heading', { name: /searching\.\.\./i })).toBeInTheDocument();
+      await expect
+        .element(page.getByRole('heading', { name: /searching\.\.\./i }))
+        .toBeInTheDocument();
     });
 
     it('does not show a results count while loading', async () => {
@@ -35,7 +37,9 @@ describe('HomeSearchResultsSection', () => {
         isLoading: true,
       });
 
-      await expect.element(page.getByRole('heading', { name: /results for/i })).not.toBeInTheDocument();
+      await expect
+        .element(page.getByRole('heading', { name: /results for/i }))
+        .not.toBeInTheDocument();
     });
   });
 
@@ -48,7 +52,9 @@ describe('HomeSearchResultsSection', () => {
         isLoading: false,
       });
 
-      await expect.element(page.getByRole('heading', { name: /no results for "xyzabc"/i })).toBeInTheDocument();
+      await expect
+        .element(page.getByRole('heading', { name: /no results for "xyzabc"/i }))
+        .toBeInTheDocument();
     });
   });
 
@@ -62,7 +68,9 @@ describe('HomeSearchResultsSection', () => {
         isLoading: false,
       });
 
-      await expect.element(page.getByRole('heading', { name: /2 results for "chuck"/i })).toBeInTheDocument();
+      await expect
+        .element(page.getByRole('heading', { name: /2 results for "chuck"/i }))
+        .toBeInTheDocument();
     });
 
     it('uses singular "result" when totalResults is 1', async () => {
@@ -73,7 +81,9 @@ describe('HomeSearchResultsSection', () => {
         isLoading: false,
       });
 
-      await expect.element(page.getByRole('heading', { name: /1 result for "norris"/i })).toBeInTheDocument();
+      await expect
+        .element(page.getByRole('heading', { name: /1 result for "norris"/i }))
+        .toBeInTheDocument();
     });
 
     it('renders each joke item', async () => {

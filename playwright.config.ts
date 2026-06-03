@@ -1,6 +1,14 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  webServer: { command: 'npm run build && npm run preview', port: 4173 },
+  reporter: process.env.CI ? [['github'], ['list']] : 'list',
+  webServer: {
+    command: 'pnpm dev',
+    url: 'http://localhost:5173',
+    reuseExistingServer: !process.env.CI,
+  },
+  use: {
+    baseURL: 'http://localhost:5173',
+  },
   testMatch: '**/*.e2e.{ts,js}',
 });
