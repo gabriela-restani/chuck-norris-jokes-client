@@ -6,17 +6,19 @@ import type { Joke } from '$lib/types/chuck-norris';
 import HomeHeroSection from '$lib/components/home/home-hero-section.svelte';
 
 vi.mock('$lib/services/chuck-norris-api', () => ({
-  ChuckNorrisApi: vi.fn(class {
-    getJokeByCategory = vi.fn().mockResolvedValue({
-      id: '2',
-      value: 'Chuck Norris counted to infinity. Twice.',
-      url: 'https://example.com/jokes/2',
-      icon_url: '',
-      categories: [],
-      created_at: '2020-01-01',
-      updated_at: '2020-01-01',
-    });
-  })
+  ChuckNorrisApi: vi.fn(
+    class {
+      getJokeByCategory = vi.fn().mockResolvedValue({
+        id: '2',
+        value: 'Chuck Norris counted to infinity. Twice.',
+        url: 'https://example.com/jokes/2',
+        icon_url: '',
+        categories: [],
+        created_at: '2020-01-01',
+        updated_at: '2020-01-01',
+      });
+    },
+  ),
 }));
 
 vi.mock('$lib/utils/share', () => ({
@@ -38,7 +40,9 @@ describe('HomeHeroSection', () => {
     it('renders the "Chuck Norris" heading', async () => {
       render(HomeHeroSection, { initialJoke: mockJoke, onSearch: vi.fn() });
 
-      await expect.element(page.getByRole('heading', { name: /chuck norris/i })).toBeInTheDocument();
+      await expect
+        .element(page.getByRole('heading', { name: /chuck norris/i }))
+        .toBeInTheDocument();
     });
 
     it('renders the "Jokes" text', async () => {
@@ -77,7 +81,11 @@ describe('HomeHeroSection', () => {
 
     beforeEach(() => {
       originalInnerWidth = window.innerWidth;
-      Object.defineProperty(window, 'innerWidth', { value: 768, writable: true, configurable: true });
+      Object.defineProperty(window, 'innerWidth', {
+        value: 768,
+        writable: true,
+        configurable: true,
+      });
     });
 
     afterEach(() => {
@@ -102,7 +110,11 @@ describe('HomeHeroSection', () => {
 
     beforeEach(() => {
       originalInnerWidth = window.innerWidth;
-      Object.defineProperty(window, 'innerWidth', { value: 1280, writable: true, configurable: true });
+      Object.defineProperty(window, 'innerWidth', {
+        value: 1280,
+        writable: true,
+        configurable: true,
+      });
     });
 
     afterEach(() => {
@@ -117,7 +129,9 @@ describe('HomeHeroSection', () => {
       render(HomeHeroSection, { initialJoke: mockJoke, onSearch: vi.fn() });
 
       await tick();
-      await expect.element(page.getByTestId('ui-star-divider').first().getByTestId('left-divider')).not.toBeInTheDocument();
+      await expect
+        .element(page.getByTestId('ui-star-divider').first().getByTestId('left-divider'))
+        .not.toBeInTheDocument();
     });
   });
 });

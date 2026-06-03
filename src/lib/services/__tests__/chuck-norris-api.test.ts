@@ -20,8 +20,6 @@ describe('ChuckNorrisApi fallback behavior', () => {
     });
     const api = new ChuckNorrisApi(fetchFn);
 
-    await expect(api.getJokeCategories()).resolves.toEqual(
-      expect.arrayContaining(['dev']),
-    );
+    await expect(api.getJokeCategories()).resolves.toEqual(expect.arrayContaining(['dev']));
   });
 });

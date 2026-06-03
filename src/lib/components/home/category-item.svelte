@@ -17,7 +17,7 @@
     color={isSelected ? 'leather-brown' : 'soft-black'}
     variant={isSelected ? 'primary' : 'secondary'}
     aria-pressed={isSelected}
-    class="uppercase tracking-wide {isSelected ? '' : 'bg-cream-100'}"
+    class="tracking-wide uppercase {isSelected ? '' : 'bg-cream-100'}"
     {onclick}
   >
     <span class={isSelected ? '' : 'text-leather-brown-600'}>#</span>

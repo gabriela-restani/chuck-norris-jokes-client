@@ -8,9 +8,11 @@ import CurrentJokeCard from '$lib/components/home/current-joke-card.svelte';
 let mockGetRandomJoke: ReturnType<typeof vi.fn>;
 
 vi.mock('$lib/services/chuck-norris-api', () => ({
-  ChuckNorrisApi: vi.fn(class {
-     getRandomJoke = mockGetRandomJoke;
-  })
+  ChuckNorrisApi: vi.fn(
+    class {
+      getRandomJoke = mockGetRandomJoke;
+    },
+  ),
 }));
 
 vi.mock('$lib/utils/share', () => ({
@@ -39,7 +41,6 @@ const anotherMockJoke: Joke = {
 
 import { shareLink } from '$lib/utils/share';
 
-
 beforeEach(() => {
   mockGetRandomJoke = vi.fn().mockResolvedValue(anotherMockJoke);
   vi.mocked(shareLink).mockReset();
@@ -64,7 +65,7 @@ describe('CurrentJokeCard', () => {
   describe('while loading a new joke', () => {
     it('shows "Loading..." on the new joke button', async () => {
       let resolve!: (joke: Joke) => void;
-      mockGetRandomJoke.mockReturnValue(new Promise<Joke>(r => (resolve = r)));
+      mockGetRandomJoke.mockReturnValue(new Promise<Joke>((r) => (resolve = r)));
       render(CurrentJokeCard, { initialJoke: mockJoke });
 
       await page.getByRole('button', { name: /new joke/i }).click();
@@ -79,7 +80,7 @@ describe('CurrentJokeCard', () => {
     it('disables the "New Joke" button', async () => {
       let resolve!: (joke: Joke) => void;
 
-      mockGetRandomJoke.mockReturnValue(new Promise<Joke>(r => (resolve = r)));
+      mockGetRandomJoke.mockReturnValue(new Promise<Joke>((r) => (resolve = r)));
       render(CurrentJokeCard, { initialJoke: mockJoke });
 
       await page.getByRole('button', { name: /new joke/i }).click();
@@ -92,7 +93,7 @@ describe('CurrentJokeCard', () => {
     it('disables the "Share Joke" button', async () => {
       let resolve!: (joke: Joke) => void;
 
-      mockGetRandomJoke.mockReturnValue(new Promise<Joke>(r => (resolve = r)));
+      mockGetRandomJoke.mockReturnValue(new Promise<Joke>((r) => (resolve = r)));
       render(CurrentJokeCard, { initialJoke: mockJoke });
 
       await page.getByRole('button', { name: /new joke/i }).click();
@@ -105,7 +106,7 @@ describe('CurrentJokeCard', () => {
     it('does not show "New Joke" label while loading', async () => {
       let resolve!: (joke: Joke) => void;
 
-      mockGetRandomJoke.mockReturnValue(new Promise<Joke>(r => (resolve = r)));
+      mockGetRandomJoke.mockReturnValue(new Promise<Joke>((r) => (resolve = r)));
       render(CurrentJokeCard, { initialJoke: mockJoke });
 
       await page.getByRole('button', { name: /new joke/i }).click();
