@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { tick } from 'svelte';
 
 const mockFreshJoke = {
   id: 'fresh-joke',
@@ -33,7 +34,7 @@ const fallbackJokeText =
   'Chuck Norris always keeps the API online. The fallback joke is ready for you.';
 
 test.describe('home page', () => {
-  test.skip('initial load renders the hero section and categories', async ({ page }) => {
+  test('initial load renders the hero section and categories', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByRole('heading', { name: 'Chuck Norris Jokes' })).toBeVisible();
@@ -49,12 +50,15 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
-    await page
-      .getByPlaceholder('Search for a joke... Ex: Karate, Chuck, Texas, etc.')
-      .fill('karate');
+
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
+    await page.getByRole('searchbox').fill('karate');
     await page.getByRole('button', { name: 'Search' }).click();
 
     await expect(page.getByText('1 result for "karate"')).toBeVisible({ timeout: 15000 });
+
     await expect(
       page.getByText('Karate joke from Chuck Norris for the Playwright test.'),
     ).toBeVisible({ timeout: 15000 });
@@ -68,12 +72,17 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
-    await page
-      .getByPlaceholder('Search for a joke... Ex: Karate, Chuck, Texas, etc.')
-      .fill('karate');
+
+    // wait page load
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
+    await page.getByRole('searchbox').fill('karate');
     await page.getByRole('button', { name: 'Search' }).click();
 
-    await expect(page.getByText('No results for "karate"')).toBeVisible({ timeout: 15000 });
+    await expect(page.getByRole('heading', { name: 'No results for "karate"' })).toBeVisible({
+      timeout: 15000,
+    });
   });
 
   test('when the user clicks New Joke, it refreshes the current joke', async ({ page }) => {
@@ -81,10 +90,6 @@ test.describe('home page', () => {
     // page.route. The first — and only — browser-level request to /jokes/random comes from
     // the "New Joke" button click, so the mock must respond on the very first call.
     await page.route('**/jokes/random**', async (route) => {
-      page.on('request', (request) => {
-        console.log('BATATA:', request.method(), request.url());
-      });
-
       if (route.request().url().includes('?category=')) {
         await route.continue();
         return;
@@ -93,6 +98,9 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
     await page.getByRole('button', { name: 'New Joke' }).click();
 
     await expect(
@@ -100,7 +108,7 @@ test.describe('home page', () => {
     ).toBeVisible({ timeout: 15000 });
   });
 
-  test.only('when the API returns an error for New Joke, it shows the fallback joke', async ({
+  test('when the API returns an error for New Joke, it shows the fallback joke', async ({
     page,
   }) => {
     await page.route('**/jokes/random**', async (route) => {
@@ -112,9 +120,16 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
+
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
     await page.getByRole('button', { name: 'New Joke' }).click();
 
-    await expect(page.getByText(fallbackJokeText)).toBeVisible({ timeout: 15000 });
+    const fallbackJoke = await page.getByText(fallbackJokeText);
+
+    await tick();
+    await expect(fallbackJoke).toBeVisible({ timeout: 15000 });
   });
 
   test('when the user clicks a category, it loads that category jokes', async ({ page }) => {
@@ -127,6 +142,10 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
+
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
     await page.getByRole('button', { name: /#\s*dev/i }).click();
 
     await expect(page.getByRole('heading', { name: 'dev' })).toBeVisible({ timeout: 15000 });
@@ -142,6 +161,9 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
+
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
     await page.getByRole('button', { name: /#\s*dev/i }).click();
 
     await expect(page.getByRole('heading', { name: 'dev' })).toBeVisible({ timeout: 15000 });
@@ -156,13 +178,20 @@ test.describe('home page', () => {
     let categoryCallCount = 0;
 
     await page.route('**/jokes/random?category=**', async (route) => {
-      // Each call gets a distinct ID (no modulo) so none are deduplicated.
-      await route.fulfill({ json: mockCategoryJokes[categoryCallCount++] });
+      // 25 unique items cover all 5 initial + 20 load-more calls, so none are deduplicated.
+      const joke = mockCategoryJokes[categoryCallCount % mockCategoryJokes.length];
+      categoryCallCount += 1;
+      await route.fulfill({ json: joke });
     });
 
     await page.goto('/');
+
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
     await page.getByRole('button', { name: /#\s*dev/i }).click();
 
+    await expect(page.getByRole('heading', { name: 'dev' })).toBeVisible({ timeout: 15000 });
     await expect(page.getByText('5 jokes loaded')).toBeVisible({ timeout: 15000 });
 
     await page.getByRole('button', { name: 'Load more jokes' }).click();
@@ -184,6 +213,10 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
+
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
     await page.getByRole('button', { name: /#\s*dev/i }).click();
 
     await expect(page.getByText('5 jokes loaded')).toBeVisible({ timeout: 15000 });
@@ -209,6 +242,10 @@ test.describe('home page', () => {
     });
 
     await page.goto('/');
+
+    await page.waitForLoadState('domcontentloaded');
+    await page.waitForLoadState('networkidle');
+
     await page.getByRole('button', { name: /#\s*dev/i }).click();
 
     await expect(page.getByRole('heading', { name: 'dev' })).toBeVisible({ timeout: 15000 });
