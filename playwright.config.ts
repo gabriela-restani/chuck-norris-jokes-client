@@ -1,10 +1,11 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
+  reporter: process.env.CI ? [['github'], ['list']] : 'list',
   webServer: {
     command: 'pnpm dev',
     url: 'http://localhost:5173',
-    reuseExistingServer: true,
+    reuseExistingServer: !process.env.CI,
   },
   use: {
     baseURL: 'http://localhost:5173',
