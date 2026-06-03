@@ -2,7 +2,6 @@
   import type { Joke } from '$lib/types/chuck-norris';
   import UiContainer from '$lib/components/ui/ui-container.svelte';
   import UiTitle from '$lib/components/ui/ui-title.svelte';
-  import UiText from '$lib/components/ui/ui-text.svelte';
   import JokeItem from '$lib/components/home/joke-item.svelte';
 
   type HomeSearchResultsSectionProps = {
@@ -43,7 +42,7 @@
 
   <ul class="flex flex-col gap-4">
     {#each jokes as joke (joke.id)}
-      <JokeItem {joke} />
+      <JokeItem {joke} {query} />
     {/each}
   </ul>
 </UiContainer>
