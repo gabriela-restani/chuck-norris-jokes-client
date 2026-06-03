@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { page } from 'vitest/browser';
 import UiLogo from '$lib/components/ui/ui-logo.svelte';
 
 describe('UiLogo', () => {
