@@ -4,6 +4,7 @@
     rightLength?: string;
     dividerColor?: string;
     starColor?: string;
+    width?: 'auto' | 'full' | 'fit';
   };
 
   let {
@@ -11,6 +12,7 @@
     rightLength = '50px',
     dividerColor = 'bg-deep-blue-400',
     starColor = 'text-red-600',
+    width = 'full',
   }: UiStarDividerProps = $props();
 
   const isZeroRegex = /^0[a-z%]*$/i;
@@ -36,7 +38,7 @@
   });
 </script>
 
-<div class="flex w-full items-center gap-2" aria-hidden="true">
+<div class={`flex w-${width} items-center gap-2`} aria-hidden="true">
   {#if hasLeftDivider}
     <div class={`mt-px h-1 ${dividerColor}`} style="width: {leftLength}"></div>
   {/if}

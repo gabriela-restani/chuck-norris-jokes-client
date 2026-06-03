@@ -6,15 +6,25 @@
     children: Snippet;
     class?: string;
     id?: string;
+    'aria-labelledby'?: string;
   };
 
-  let { tag = 'div', children, class: className, id }: UiContainerProps = $props();
+  let {
+    tag = 'div',
+    children,
+    class: className,
+    id,
+    'aria-labelledby': ariaLabelledby,
+  }: UiContainerProps = $props();
 </script>
 
 <svelte:element
   this={tag}
   {id}
-  class={`max-h mx-auto my-0 w-full max-w-[calc(100dvw-2rem)] py-6 md:max-w-2xl lg:max-w-4xl lg:py-12 xl:max-w-5xl ${className || ''}`}
+  aria-labelledby={ariaLabelledby}
+  class={`max-h mx-auto my-0 w-full max-w-[calc(100dvw-2rem)]
+    md:max-w-2xl lg:max-w-4xl xl:max-w-5xl ${className || ''}
+  `}
 >
   {@render children()}
 </svelte:element>
