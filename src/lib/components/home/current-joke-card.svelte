@@ -17,7 +17,8 @@
 
 <div
   id="jokes"
-  class="flex w-full flex-col items-start justify-start gap-3 rounded-lg bg-deep-blue-900 p-6 md:aspect-2/1"
+  class="flex w-full flex-col items-start justify-around gap-3
+    rounded-lg bg-deep-blue-900 p-6 md:min-h-72"
 >
   <UiTitle tag="h2" size="xs" weight="medium" class="text-md font-light text-leather-brown-400">
     ★ Current Joke
@@ -27,7 +28,9 @@
     tag="p"
     size="3xl"
     weight="medium"
-    class="h-auto text-cream-100 transition-opacity duration-300 {isLoading ? 'opacity-40' : 'opacity-100'}"
+    class="h-auto text-cream-100 transition-opacity duration-300 {isLoading
+      ? 'opacity-40'
+      : 'opacity-100'}"
   >
     {joke.value}
   </UiText>
