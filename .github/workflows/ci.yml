@@ -75,4 +75,4 @@ jobs:
         run: pnpm exec playwright install --with-deps
 
       - name: Run E2E tests
-        run: pnpm test:e2e -- --pass-with-no-tests
+        run: pnpm exec playwright test --pass-with-no-tests
