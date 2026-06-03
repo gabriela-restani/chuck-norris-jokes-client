@@ -17,7 +17,7 @@
   let { heading, jokes, isLoading, hasMore, onLoadMore }: CategoryJokesListProps = $props();
 </script>
 
-<div class="flex flex-col gap-6">
+<div class="flex w-full flex-col gap-6">
   <UiStarDivider
     leftLength="100%"
     rightLength="100%"
@@ -45,13 +45,16 @@
     {#each jokes as joke (joke.id)}
       <JokeItem {joke} />
     {/each}
-
-    {#if isLoading}
-      <li class="rounded-lg border border-deep-blue-200 bg-deep-blue-100 p-5 text-center">
-        <UiText tag="p" size="md" class="animate-pulse text-deep-blue-600">Loading jokes...</UiText>
-      </li>
-    {/if}
   </ul>
+
+  {#if isLoading}
+    <UiText
+      tag="span"
+      size="md"
+      class="w-fit animate-pulse self-center rounded-lg border border-deep-blue-200 bg-deep-blue-100 px-4 py-2 text-center text-deep-blue-600"
+      >Loading jokes...</UiText
+    >
+  {/if}
 
   {#if hasMore && !isLoading}
     <div class="flex justify-center">
