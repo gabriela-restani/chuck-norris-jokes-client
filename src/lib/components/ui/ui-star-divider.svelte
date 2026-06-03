@@ -19,33 +19,24 @@
 
   const hasLeftDivider = $derived(!isZeroRegex.test(leftLength));
   const hasRightDivider = $derived(!isZeroRegex.test(rightLength));
-
-  $effect(() => {
-    if (!hasLeftDivider) {
-      console.warn(
-        'UiStarDivider: leftLength is set to zero or invalid values. Left divider will be rendered.',
-        leftLength,
-        hasLeftDivider,
-      );
-    }
-    if (!hasRightDivider) {
-      console.warn(
-        'UiStarDivider: rightLength is set to zero or invalid values. Right divider will be rendered.',
-        rightLength,
-        hasRightDivider,
-      );
-    }
-  });
 </script>
 
-<div class={`flex w-${width} items-center gap-2`} aria-hidden="true">
+<div data-testid="ui-star-divider" class={`flex w-${width} items-center gap-2`} aria-hidden="true">
   {#if hasLeftDivider}
-    <div class={`mt-px h-1 ${dividerColor}`} style="width: {leftLength}"></div>
+    <div
+      data-testid="left-divider"
+      class={`mt-px h-1 ${dividerColor}`}
+      style="width: {leftLength}"
+    ></div>
   {/if}
 
-  <span class={`${starColor} whitespace-nowrap`}>★ ★ ★</span>
+  <span data-testid="star-divider" class={`${starColor} whitespace-nowrap`}>★ ★ ★</span>
 
   {#if hasRightDivider}
-    <div class={`mt-px h-1 ${dividerColor}`} style="width: {rightLength}"></div>
+    <div
+      data-testid="right-divider"
+      class={`mt-px h-1 ${dividerColor}`}
+      style="width: {rightLength}"
+    ></div>
   {/if}
 </div>
