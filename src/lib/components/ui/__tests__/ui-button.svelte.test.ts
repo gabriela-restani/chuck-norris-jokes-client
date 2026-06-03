@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import { page } from 'vitest/browser';
-import { createRawSnippet } from 'svelte';
+import { createRawSnippet, tick } from 'svelte';
 import UiButton from '$lib/components/ui/ui-button.svelte';
 
 function makeSnippet(text: string) {
@@ -18,7 +18,10 @@ describe('UiButton', () => {
   it('fires onclick handler when clicked', async () => {
     const onclick = vi.fn();
     render(UiButton, { children: makeSnippet('Click me'), onclick });
+
     await page.getByRole('button').click();
+    await tick();
+
     expect(onclick).toHaveBeenCalledOnce();
   });
 
