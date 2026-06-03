@@ -3,16 +3,32 @@
   import UiText from '$lib/components/ui/ui-text.svelte';
   import UiStarDivider from '$lib/components/ui/ui-star-divider.svelte';
   import UiButton from '$lib/components/ui/ui-button.svelte';
+  import { ChuckNorrisApi } from '$lib/services/chuck-norris-api';
+  import { shareLink } from '$lib/utils/share';
   import type { Joke } from '$lib/types/chuck-norris';
 
   type CurrentJokeCardProps = {
-    joke: Joke;
-    isLoading?: boolean;
-    onNewJoke: () => void;
-    onShareJoke: () => void;
+    initialJoke: Joke;
   };
 
-  let { joke, isLoading = false, onNewJoke, onShareJoke }: CurrentJokeCardProps = $props();
+  let { initialJoke }: CurrentJokeCardProps = $props();
+
+  const api = new ChuckNorrisApi();
+
+  // svelte-ignore state_referenced_locally
+  let currentJoke = $state(initialJoke);
+  let isLoading = $state(false);
+
+  const handleNewJoke = async () => {
+    isLoading = true;
+    try {
+      currentJoke = await api.getRandomJoke();
+    } finally {
+      isLoading = false;
+    }
+  };
+
+  const handleShare = () => shareLink(currentJoke.url);
 </script>
 
 <div
@@ -32,7 +48,7 @@
       ? 'opacity-40'
       : 'opacity-100'}"
   >
-    {joke.value}
+    {currentJoke.value}
   </UiText>
 
   <UiStarDivider
@@ -48,7 +64,7 @@
       variant="secondary"
       behavior="inline-block"
       disabled={isLoading}
-      onclick={onShareJoke}
+      onclick={handleShare}
     >
       Share Joke
     </UiButton>
@@ -57,7 +73,7 @@
       variant="primary"
       behavior="inline-block"
       disabled={isLoading}
-      onclick={onNewJoke}
+      onclick={handleNewJoke}
     >
       {isLoading ? 'Loading...' : 'New Joke'}
     </UiButton>

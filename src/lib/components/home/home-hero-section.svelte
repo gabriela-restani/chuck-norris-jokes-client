@@ -7,24 +7,13 @@
   import type { Joke } from '$lib/types/chuck-norris';
 
   type HomeHeroSectionProps = {
-    joke: Joke;
-    isLoadingJoke?: boolean;
+    initialJoke: Joke;
     onSearch: (query: string) => void;
-    onNewJoke: () => void;
-    onShareJoke: () => void;
     class?: string;
     id?: string;
   };
 
-  let {
-    joke,
-    isLoadingJoke = false,
-    onSearch,
-    onNewJoke,
-    onShareJoke,
-    class: className = '',
-    id,
-  }: HomeHeroSectionProps = $props();
+  let { initialJoke, onSearch, class: className = '', id }: HomeHeroSectionProps = $props();
 
   let isMobile = $state(false);
 
@@ -67,6 +56,6 @@
   </div>
 
   <div>
-    <CurrentJokeCard {joke} isLoading={isLoadingJoke} {onNewJoke} {onShareJoke} />
+    <CurrentJokeCard {initialJoke} />
   </div>
 </UiContainer>
