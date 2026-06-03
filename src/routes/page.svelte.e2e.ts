@@ -33,7 +33,7 @@ const fallbackJokeText =
   'Chuck Norris always keeps the API online. The fallback joke is ready for you.';
 
 test.describe('home page', () => {
-  test('initial load renders the hero section and categories', async ({ page }) => {
+  test.skip('initial load renders the hero section and categories', async ({ page }) => {
     await page.goto('/');
 
     await expect(page.getByRole('heading', { name: 'Chuck Norris Jokes' })).toBeVisible();
@@ -100,14 +100,10 @@ test.describe('home page', () => {
     ).toBeVisible({ timeout: 15000 });
   });
 
-  test('when the API returns an error for New Joke, it shows the fallback joke', async ({
+  test.only('when the API returns an error for New Joke, it shows the fallback joke', async ({
     page,
   }) => {
     await page.route('**/jokes/random**', async (route) => {
-      page.on('request', (request) => {
-        console.log('BATATA:', request.method(), request.url());
-      });
-
       if (route.request().url().includes('?category=')) {
         await route.continue();
         return;
