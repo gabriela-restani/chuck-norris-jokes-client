@@ -81,6 +81,10 @@ test.describe('home page', () => {
     // page.route. The first — and only — browser-level request to /jokes/random comes from
     // the "New Joke" button click, so the mock must respond on the very first call.
     await page.route('**/jokes/random**', async (route) => {
+      page.on('request', (request) => {
+        console.log('BATATA:', request.method(), request.url());
+      });
+
       if (route.request().url().includes('?category=')) {
         await route.continue();
         return;
@@ -100,6 +104,10 @@ test.describe('home page', () => {
     page,
   }) => {
     await page.route('**/jokes/random**', async (route) => {
+      page.on('request', (request) => {
+        console.log('BATATA:', request.method(), request.url());
+      });
+
       if (route.request().url().includes('?category=')) {
         await route.continue();
         return;
